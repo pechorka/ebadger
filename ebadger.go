@@ -21,6 +21,10 @@ func GetUnmarshal(txn *badger.Txn, key []byte, value interface{}) error {
 		return err
 	}
 
+	return Unmarshal(it, value)
+}
+
+func Unmarshal(it *badger.Item, value interface{}) error {
 	return it.Value(func(data []byte) error {
 		return json.Unmarshal(data, value)
 	})
